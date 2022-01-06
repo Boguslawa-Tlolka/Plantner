@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Plantner</string>
+    <string name="add_plant">Add plant</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
+    <string name="description">Description</string>
 </resources>

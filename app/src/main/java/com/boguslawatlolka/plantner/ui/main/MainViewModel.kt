@@ -1,27 +1,35 @@
 package com.boguslawatlolka.plantner.ui.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlin.random.Random
+import androidx.lifecycle.ViewModelProvider
 
-class MainViewModel: ViewModel() {
+class MainViewModel(private val plantList: PlantList): ViewModel() {
 
-    private val _data = MutableLiveData<List<Plant>>()
-    val data: LiveData<List<Plant>> = _data
+    val plantsLiveData: MutableLiveData<List<Plant>> = plantList.getPlantList()
+    var plantId = 0
 
-    init {
-        showData()
-    }
-
-    fun showData() {
-        _data.value = List(20) { index ->
-            val id = index + 1
-            Plant(
-                id = id,
-                name = "Plant $id",
-                description = "Description $id"
-            )
+    fun insertPlant(plantName: String?, plantDescription: String?) {
+        if (plantName == null || plantName == "") {
+            return
         }
+        else {
+            val newPlant = Plant(plantId, plantName, plantDescription)
+            plantList.addPlant(newPlant)
+            plantId += 1
+        }
+    }
+}
+
+class MainViewModelFactory(private val plantList: PlantList) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(
+                plantList
+            ) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

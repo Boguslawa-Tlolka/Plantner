@@ -16,3 +16,10 @@ Plant care manager
 * ViewModel
 * LiveData
 * Navigation component
+
+## Further development
+
+* Database using Room
+* Notifications about watering
+* Filtering plant list
+* Google Lens for plant identification
